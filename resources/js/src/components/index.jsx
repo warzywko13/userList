@@ -1,6 +1,8 @@
-import Navbar from './Navbar/Navbar.jsx';
+import Navbar from './Navbar/Navbar';
+import List from './List/List';
 
 
 export {
-    Navbar
+    Navbar,
+    List
 }

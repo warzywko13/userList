@@ -7,7 +7,7 @@ import {Navbar} from "../components";
 
 export const Router = () => {
     return (
-        <div className={"container"}>
+        <div>
             <Navbar/>
             <Routes>
                 <Route path={"/"} element={<Home/>} />

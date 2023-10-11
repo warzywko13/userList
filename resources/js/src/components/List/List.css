@@ -1,0 +1,86 @@
+.weather-list {
+    margin-top: 2rem;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.weather-list__btn {
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    font-size: 17px;
+    transition: 0.2s all;
+    box-shadow: 0 0 5px #000;
+    display: block;
+    margin-right: 1rem;
+    margin-left: auto;
+}
+
+.btn-add {
+    background: #5767aa;
+    color: #fff;
+}
+
+.btn-add:hover {
+    background: #576ae2;
+    box-shadow: 0 0 5px #000;
+}
+
+.weather-list__container {
+    overflow-x: auto;
+}
+
+.weather-list__table {
+    margin-top: 2rem;
+    background: #5767aa;
+    color: #fff;
+    overflow-x: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 3px solid purple;
+}
+
+/*.weather-list__table thead th:nth-child(1) {*/
+/*    width: 20%;*/
+/*}*/
+
+/*.weather-list__table thead th:nth-child(2) {*/
+/*    width: 20%;*/
+/*}*/
+
+/*.weather-list__table thead th:nth-child(3) {*/
+/*    width: 30%;*/
+/*}*/
+
+/*.weather-list__table thead th:nth-child(4) {*/
+/*    width: 10%;*/
+/*}*/
+
+.weather-list__table td,
+.weather-list__table th {
+    padding: 1rem;
+    border: 1px solid purple;
+}
+
+.weather-list__table tbody tr:nth-child(odd) {
+    background: #576ae2;
+}
+
+.weather-list__table-btn {
+    text-decoration: none;
+    text-align: center;
+    color: #000;
+    font-size: 35px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-edit:hover,
+.btn-remove:hover {
+    color: #000;
+}

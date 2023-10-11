@@ -1,8 +1,17 @@
 import React from "react";
+import {List} from '../components';
 
 const Home = () => {
     return (
-        <h1>Hello Word!</h1>
+        <div className={"container mt-2"}>
+            <button
+                className="weather-list__btn btn-add"
+            >
+                Add New
+            </button>
+
+            <List />
+        </div>
     );
 }
 
