@@ -6,8 +6,8 @@ import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 
 const List = () => {
     return (
-        <div className={"table-responsive"}>
-            <table className={"weather-list__table"}>
+        <div className={"table-responsive mt-5"}>
+            <table className={"weather-list__table w-100"}>
                 <thead>
                 <tr>
                     <th>Imie</th>

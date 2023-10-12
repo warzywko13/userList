@@ -14,14 +14,14 @@ const Navbar = () => {
     const resp_nav = addClass ? 'responsive-nav' : '';
 
     return (
-        <header>
-            <div className="responsive-button">
+        <header className="d-flex flex-column">
+            <div className="responsive-button pb-2">
                 <button className="nav__btn" onClick={showNavbar}>
                     <FaBars />
                 </button>
             </div>
-            <nav className={'nav ' + resp_nav}>
-                <ul>
+            <nav className={'container nav ' + resp_nav}>
+                <ul className="list-unstyled d-flex mx-auto mx-md-0 justify-content-center align-items-center mt-2">
                     <li>
                         <Link to={"/"} className="nav__link">
                             Strona Główna

@@ -1,0 +1,21 @@
+.add-edit-weather__submit {
+    transition: 0.2 all;
+    background: #5767aa !important;
+    color: #fff !important;
+}
+
+.add-edit-weather__submit:hover {
+    background: #576ae2;
+    box-shadow: 0 0 5px #000;
+}
+
+.add-edit-weather__required {
+    color: red;
+}
+
+.add-edit-weather__input-error {
+    color: red;
+    text-decoration: center;
+    display: block;
+    width: 100%;
+}

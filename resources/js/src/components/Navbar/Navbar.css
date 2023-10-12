@@ -1,8 +1,4 @@
 header {
-    display: flex;
-    flex-direction: column;
-    min-height: 80px;
-    padding: 0 2rem;
     background: #5767aa;
     color: #fff;
 }
@@ -24,17 +20,6 @@ header .nav__btn {
 
 header .nav__btn:hover {
     color: #000;
-}
-
-nav {
-    width: 80%;
-    margin: auto;
-}
-
-nav ul {
-    display: flex;
-    align-items: center;
-    list-style: none;
 }
 
 nav ul li {
