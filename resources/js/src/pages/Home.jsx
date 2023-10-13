@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useNavigate } from "react-router-dom";
 import {List} from '../components';
 
@@ -13,7 +14,6 @@ const Home = () => {
             >
                 Add New
             </button>
-
             <List />
         </div>
     );

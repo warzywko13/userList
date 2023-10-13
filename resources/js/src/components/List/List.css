@@ -24,7 +24,7 @@
     background: #576ae2;
 }
 
-.weather-list__table-btn {
+.weather-list__table-btn > a {
     text-decoration: none;
     text-align: center;
     color: #000;
@@ -35,7 +35,11 @@
     cursor: pointer;
 }
 
-.btn-edit:hover,
-.btn-remove:hover {
+.btn-edit > a:hover,
+.btn-remove > a:hover {
     color: #000;
+}
+
+.page-item {
+    cursor: pointer;
 }

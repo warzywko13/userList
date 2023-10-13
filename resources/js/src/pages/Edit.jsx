@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -21,10 +21,36 @@ const Edit = () => {
     const [surname, setSurname] = useState('');
     const [city, setCity] = useState('');
     const [street, setStreet] = useState('');
-    const [number, setNumer] = useState();
-    const [local, setLocal] = useState();
-    const [post, setPost] = useState('');
+    const [streetNumber, setStreetNumber] = useState(0);
+    const [localNumber, setLocalNumber] = useState(0);
+    const [postCode, setPostCode] = useState('');
     const [country, setCountry] = useState('');
+
+    useEffect(() => {
+        if(id) {
+            axios({
+                method: "GET",
+                url: `/api/user`,
+                params: {
+                    id: id,
+                }
+            }).then(({data, status}) => {
+                if(status == 200) {
+                    const {login, name, surname, city, street, street_number, post_code, country} = data;
+                    setLogin(login);
+                    setName(name);
+                    setSurname(surname);
+                    setCity(city);
+                    setStreet(street);
+                    setStreetNumber(street_number);
+                    setPostCode(post_code);
+                    setCountry(country);
+                }
+            }).catch(({resp}) => {
+    
+            });
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,13 +65,13 @@ const Edit = () => {
                 surname,
                 city,
                 street,
-                number,
-                local,
-                post,
+                streetNumber,
+                localNumber,
+                postCode,
                 country
             }
         }).then(({resp}) => {
-            // nav("/visit");
+            nav("/");
         }).catch(({resp}) => {
 
         });
@@ -116,20 +142,20 @@ const Edit = () => {
                 required
                 type="number"
                 className="form-control"
-                value={number}
-                onChange={(e) => setNumer(e.target.value)}
+                value={streetNumber}
+                onChange={(e) => setStreetNumber(e.target.value)}
             />
         </label>
 
-        <label className='mt-3'>
+        {/* <label className='mt-3'>
             Numer lokalu
             <input
                 type="number"
                 className="form-control"
-                value={local}
-                onChange={(e) => setLocal(e.target.value)}
+                value={localNumber}
+                onChange={(e) => setLocalNumber(e.target.value)}
             />
-        </label>
+        </label> */}
 
         <label className='mt-3'>
             Kod pocztowy<span className="add-edit-weather__required">*</span>
@@ -137,8 +163,8 @@ const Edit = () => {
                 required
                 type="text"
                 className="form-control"
-                value={post}
-                onChange={(e) => setPost(e.target.value)}
+                value={postCode}
+                onChange={(e) => setPostCode(e.target.value)}
             />
         </label>
 

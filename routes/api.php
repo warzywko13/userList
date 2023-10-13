@@ -19,4 +19,5 @@ Route::controller(UsersController::class)->group(function() {
     Route::post('/add_edit', 'add_edit_user');
     Route::post('/delete', 'delete_user');
     Route::get('/list', 'list_users');
+    Route::get('/user', 'get_user');
 });

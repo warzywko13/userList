@@ -28,14 +28,12 @@ class UsersModel extends Model
 
         if($id) {
             $count = DB::table($this->table)
-                ->get()
                 ->where('id', '<>', $id)
                 ->where('login', $user)
                 ->where('deleted', 0)
                 ->count();
         } else {
             $count = DB::table($this->table)
-                ->get()
                 ->where('login', $user)
                 ->where('deleted', 0)
                 ->count();
@@ -48,27 +46,42 @@ class UsersModel extends Model
     final public function getUser(int $id)
     {
         return DB::table($this->table)
-                ->get()
-                ->where('id', $id)
-                ->where('deleted', 0);
+        ->where('id', $id)
+        ->where('deleted', 0)
+        ->first();
     }
 
     final public function addUpdateUser(object $ob)
     {
         if(!empty($ob->id)) {
-            if($ob->deleted) {
+            if(isset($ob->deleted)) {
                 $ob->delete_at = $this->timeToDateTime(time());
             }
 
             $ob->update_at = $this->timeToDateTime(time());
-        } else {
-            $ob->created_at = $this->timeToDateTime(time());
+
+            return DB::table($this->table)->where('id', '=', $ob->id)->update(
+                (array) $ob
+            );
         }
 
-        $result = DB::table($this->table)->insert([
+        $ob->created_at = $this->timeToDateTime(time());
+
+        return DB::table($this->table)->insert([
             (array) $ob
         ]);
+    }
 
-        return $result;
+    final public function getAllUsers(bool $paginate = false)
+    {
+        $data = [];
+
+        if($paginate) {
+            $data = DB::table($this->table)->where('deleted', '=', '0')->paginate(1);
+        } else {
+            $data = DB::table($this->table)->where('deleted', '=', '0')->get();
+        }
+
+        return $data;
     }
 }

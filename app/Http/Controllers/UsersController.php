@@ -15,8 +15,7 @@ class UsersController
     
     final public function add_edit_user(Request $request)
     {
-        $message = 'Błąd dodawania użytkownika';
-        $status = 'error';
+        $status = 400;
 
         $user = $request->all();
 
@@ -33,62 +32,61 @@ class UsersController
                 $ob->name = $user['name'];
                 $ob->surname = $user['surname'];
                 $ob->city = $user['city'];
-                $ob->street_number = $user['street'];
-                $ob->post_code = $user['post'];
+                $ob->street = $user['street'];
+                $ob->street_number = $user['streetNumber'];
+                $ob->post_code = $user['postCode'];
                 $ob->country = $user['country'];
 
                 $result = $this->model->addUpdateUser($ob);
 
                 if($result) {
-                    $status = 'ok';
-                    $message = 'Użytkownik dodany pomyślnie!';
-
-                    if($id) {
-                        $message = 'Użytkownik zmodyfikowany pomyślnie!';
-                    }
+                    $status = 200;
                 }
-            } else {
-                $message = 'Użytkownik o takim loginie już istnieje!';
             }
-
         }
 
-        $data = [
-            'message' => $message,
-            'status' => $status
-        ];
+        return response()->json([], $status);
+    }
 
-        return response()->json($data);
+    final public function get_user(Request $request)
+    {
+        $status = 200;
+        $data = [];
+
+        $id = $request->input('id');
+        if($id) {
+            $data = $this->model->getUser($id);
+        }
+
+        return response()->json($data, $status);        
     }
 
     final public function delete_user(Request $request)
     {
-        $message = 'Błąd usuwania użytkownika';
-        $status = 'error';
+        $status = 400;
 
         $id = $request->input('id');
         if($id) {
             $user = (object) $this->model->getUser($id);
-            $user->deleted = 0;
+            $user->deleted = 1;
 
             $result = $this->model->addUpdateUser($user);
 
             if($result) {
-                $status = 'ok';
-                $message = 'Użytkownik usunięty pomyślnie!';
+                $status = 200;
             }
         }
 
-        $data = [
-            'message' => $message,
-            'status' => $status
-        ];
-
-        return response()->json($data);
+        return response()->json([], $status);
     }
 
-    final public function list_users()
+    final public function list_users(Request $request)
     {
-        
+        $status = 200;
+
+        $pagination = $request->input('pagination', false);
+        $result = $this->model->getAllUsers($pagination);
+
+        return response()->json($result, $status);
     }
 }
