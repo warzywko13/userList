@@ -3,11 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
 
+import {Loading} from '../components/index';
+
 import "../../../css/Edit.css";
 
 const Edit = () => {
     const nav = useNavigate();
     const {id} = useParams();
+
+    const [isloading, setIsLoading] = useState(false);
 
     let h1Text = 'Dodaj użytkownika';
     let submitText = 'Dodaj';
@@ -29,6 +33,8 @@ const Edit = () => {
 
     useEffect(() => {
         if(id) {
+            setIsLoading(true);
+
             axios({
                 method: "GET",
                 url: `/api/user`,
@@ -46,15 +52,28 @@ const Edit = () => {
                     setStreetNumber(street_number);
                     setPostCode(post_code);
                     setCountry(country);
+
+                    setIsLoading(false);
                 }
             }).catch(({resp}) => {
-    
+                Swal.fire({
+                    title: 'Błąd',
+                    icon: 'error',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
+                setIsLoading(false);
             });
         }
     }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         await axios({
             method: "POST",
@@ -95,6 +114,7 @@ const Edit = () => {
                       popup: 'animate__animated animate__fadeOutUp'
                     }
                 });
+                setIsLoading(false);
             }
         }).catch(({resp}) => {
             Swal.fire({
@@ -107,10 +127,11 @@ const Edit = () => {
                   popup: 'animate__animated animate__fadeOutUp'
                 }
             });
+            setIsLoading(false);
         });
     }
 
-  return (
+  return isloading ? <Loading/> : (
     <form className='container d-flex flex-column mt-5' onSubmit={handleSubmit}>
         <h1 className='h1 text-center mb-3'>{h1Text}</h1>
 

@@ -47,11 +47,11 @@ const List = () => {
             }
         }).catch(({resp}) => {
             Swal.fire('Błąd', '', 'error');
+            setIsLoading(false);
         });
     }
 
-    const deleteData = async (id) => {
-
+    const deleteData = async (id) => {        
         MySwal.fire({
             title: 'Czy napewno chcesz to zrobić?',
             showDenyButton: true,
@@ -60,6 +60,7 @@ const List = () => {
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
+                setIsLoading(true);
                 axios({
                     method: "POST",
                     url: '/api/delete',
@@ -72,8 +73,10 @@ const List = () => {
                     } else {
                         Swal.fire('Błąd', '', 'error');
                     }
+                    setIsLoading(false);
                 }).catch(({resp}) => {
                     Swal.fire('Błąd', '', 'error');
+                    setIsLoading(false);
                 });
             }
         });          

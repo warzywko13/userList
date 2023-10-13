@@ -88,6 +88,12 @@ class UsersModel extends Model
             $data = DB::table($this->table)
             ->where('deleted', '=', '0')
             ->paginate($rows);
+        } else if ($like) {
+            $data = DB::table($this->table)
+            ->where('deleted', '=', '0')
+            ->where('login', 'like', $like . '%')
+            ->orWhere('name', 'like', $like . '%')
+            ->orWhere('surname', 'like', $like . '%');
         } else {
             $data = DB::table($this->table)
             ->where('deleted', '=', '0')
