@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 import "../../../css/Edit.css";
 
@@ -70,10 +71,42 @@ const Edit = () => {
                 postCode,
                 country
             }
-        }).then(({resp}) => {
-            nav("/");
+        }).then(({data, status}) => {
+            if(status == 200) {
+                Swal.fire({
+                    title: id ? 'Użytkownik został zaktualizowany' : 'Użytkownik został dodany',
+                    icon: 'success',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
+                nav("/");
+            } else {
+                Swal.fire({
+                    title: 'Istnieje już użytkownik o takim loginie',
+                    icon: 'error',
+                    showClass: {
+                      popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                      popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
+            }
         }).catch(({resp}) => {
-
+            Swal.fire({
+                title: 'Błąd',
+                icon: 'error',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
         });
     }
 

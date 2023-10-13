@@ -85,7 +85,9 @@ class UsersController
         $status = 200;
 
         $pagination = $request->input('pagination', false);
-        $result = $this->model->getAllUsers($pagination);
+        $like = $request->input('like');
+
+        $result = $this->model->getAllUsers($pagination, $like);
 
         return response()->json($result, $status);
     }

@@ -72,14 +72,26 @@ class UsersModel extends Model
         ]);
     }
 
-    final public function getAllUsers(bool $paginate = false)
+    final public function getAllUsers(bool $paginate = false, string $like = null)
     {
+        $rows = 10;
         $data = [];
 
-        if($paginate) {
-            $data = DB::table($this->table)->where('deleted', '=', '0')->paginate(1);
+        if($paginate && $like) {
+            $data = DB::table($this->table)
+            ->where('deleted', '=', '0')
+            ->where('login', 'like', $like . '%')
+            ->orWhere('name', 'like', $like . '%')
+            ->orWhere('surname', 'like', $like . '%')
+            ->paginate($rows);
+        } else if($paginate) {
+            $data = DB::table($this->table)
+            ->where('deleted', '=', '0')
+            ->paginate($rows);
         } else {
-            $data = DB::table($this->table)->where('deleted', '=', '0')->get();
+            $data = DB::table($this->table)
+            ->where('deleted', '=', '0')
+            ->get();
         }
 
         return $data;
